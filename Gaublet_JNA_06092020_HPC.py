@@ -17,10 +17,10 @@ class GaubletOpticalSystem:
                  wavelength,
                  numbeamlets):
 
-        basesys = np.array([[1,0,0,0],
-                            [0,1,0,0],
-                            [0,0,1,0],
-                            [0,0,0,1]])
+        basesys = np.array([[1.0,0,0,0],
+                            [0,1.0,0,0],
+                            [0,0,1.0,0],
+                            [0,0,0,1.0]])
         self.system = basesys
         self.epd = epd
         self.npix = npix
@@ -32,17 +32,17 @@ class GaubletOpticalSystem:
         # Beamlet Parameters
         self.wl = wavelength * u.meter # beamlet wavelength
         OF = 2 # Overlap Factor
-        wo = 3*self.wl # beamlet waist
+        wo = 5*self.wl # beamlet waist
         zr = np.pi*wo**2/self.wl
 
         # Create system with a circular aperture for testing - arbitrary for now
-        W = 5e-3 * u.meter
-        npix = 512
-        dimd = 1e-2 * u.meter
+        self.epd = epd
+        self.npix = npix
+        dimd = dimd
 
         # Create List of Positions (X,Y) in a Fibbonacci Sampled Spiral Circular Aperture
         c = np.array([0,0]) # XY offset from a spiral
-        R = W*np.sqrt(np.linspace(1/2,self.N-1/2,self.N))/np.sqrt(self.N-1/2)
+        R = self.epd*np.sqrt(np.linspace(1/2,self.N-1/2,self.N))/np.sqrt(self.N-1/2)
         T = 4/(1+np.sqrt(5))*np.pi*np.linspace(1,self.N,self.N);
         X = c[0] +R*np.cos(T)
         Y = c[1] +R*np.sin(T)
@@ -51,10 +51,10 @@ class GaubletOpticalSystem:
 
 
         # Define a Q Matrix - diagonal zero for nonastigmatic, nonrotated case
-        qxx = 1/(1j*zr)
+        qxx = 1.0/(1j*zr)
         qxy = 0
         qyx = 0
-        qyy = 1/(1j*zr)
+        qyy = 1.0/(1j*zr)
         self.Q = np.array([[qxx,qxy],
                             [qyx,qyy]],dtype='complex') # Defines the matrix of inverse q parameters
 
@@ -68,10 +68,10 @@ class GaubletOpticalSystem:
         efl = efl
 
         # Focusing matrix
-        optic = np.array([[1,0,0,0],
-                  [0,1,0,0],
-                  [-1/efl,0,1,0],
-                  [0,-1/efl,0,1]])
+        optic = np.array([[1.0,0,0,0],
+                  [0,1.0,0,0],
+                  [-1.0/float(efl),0,1.0,0],
+                  [0,-1.0/float(efl),0,1.0]])
         self.system = np.matmul(optic,self.system)
 
     def add_distance(self,distance,index):
@@ -79,10 +79,10 @@ class GaubletOpticalSystem:
         index = index
 
         # Propagation matrix
-        propg = np.array([[1,0,distance/index,0],
-                          [0,1,0,distance/index],
-                          [0,0,1,0],
-                          [0,0,0,1]])
+        propg = np.array([[1.0,0,float(distance)/float(index),0],
+                          [0,1.0,0,float(distance)/float(index)],
+                          [0,0,1.0,0],
+                          [0,0,0,1.0]])
         self.system = np.matmul(propg,self.system)
 
     def propagate(self):
@@ -134,8 +134,10 @@ class GaubletWavefront:
 
     def Phasecalc(self): # returns datacube of gaublet phases
 
+
+        # BIG CHANGE HAPPENED HERE
         # propagation distance for a beamlet
-        lo = np.sqrt((self.proprays[0,:] - self.baserays[0,:])**2 + (self.proprays[1,:] - self.baserays[1,:])**2 + self.system[0,2]**2)
+        lo = 1*self.system[0,2] + 0*(np.sqrt((self.proprays[0,:] - self.baserays[0,:])**2 + (self.proprays[1,:] - self.baserays[1,:])**2 +self.system[0,2]**2))
         A  = self.system[0:2,0:2]
         B  = self.system[0:2,2:4]
         phase = self.Phasecube(self.numbeamlets,
@@ -167,9 +169,9 @@ class GaubletWavefront:
 
         return Dphase
 
-    def display(self,phase):
+    def display(self,field):
 
-        self.phase = phase
+        self.field = field
 
         # displays field amplitude, phase, and irradiance
         u = np.linspace(-self.dimension,self.dimension,self.npix)
@@ -178,29 +180,31 @@ class GaubletWavefront:
         plt.figure(figsize=[17,9])
         plt.subplot(121)
         plt.set_cmap('gray')
-        plt.pcolor(u,v,np.real(np.sqrt(self.phase*np.conj(self.phase))))
+        plt.pcolor(u,v,(np.abs(self.field)))
         plt.title('Field Amplitude')
         plt.xlabel('Detector Dimension [m]')
         plt.ylabel('Detector Dimension [m]')
 
         plt.subplot(122)
-        plt.pcolor(u,v,np.angle((self.phase)))
+        plt.pcolor(u,v,np.angle((self.field)))
         plt.title('Field Phase')
         plt.xlabel('Detector Dimension [m]')
         plt.ylabel('Detector Dimension [m]')
+        plt.show()
 
 
 
-# Test System
-osys = GaubletOpticalSystem(epd=5e-3,npix=1024,dimd=5e-3,wavelength=2.2e-6,numbeamlets=1000)
-osys.add_optic(efl=5e-3)
-osys.add_distance(distance=5e-3,index=1)
+# Test System - EPD MIGHT BE EPR
+osys = GaubletOpticalSystem(epd=5e-4,npix=512,dimd=5e-4,wavelength=2.2e-6,numbeamlets=3500)
+osys.add_optic(efl=50e-4)
+osys.add_distance(distance=((2.2e-6)),index=1)
 Qp,prop = osys.propagate()
 gwfr = GaubletWavefront(wavelength=osys.wl,numbeamlets=osys.N,npix=osys.npix,dimension=osys.dimd,proprays=prop,baserays=osys.baserays,Qorig=osys.Q,Qprop=Qp,system = osys.system)
-Dphase = gwfr.Phasecalc()
-gwfr.display(phase=Dphase)
+Dfield = gwfr.Phasecalc()
+gwfr.display(field=Dfield)
 
-
+# (2.2e-6 *(3.0/2.0))
+# np.conj(self.field)
 # settings produce a cool phase pattern
 # epd = 5e-3
 # npix = 512
