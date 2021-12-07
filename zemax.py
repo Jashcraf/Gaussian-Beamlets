@@ -148,7 +148,7 @@ if __name__ == '__main__':
     zos = PythonStandaloneApplication()
 
     # User inputs to the beamlet propagation
-    max_rays = 30
+    max_rays = 50
     filename = "parabolatest.zmx"
 
     # Just a single fov at a time
@@ -163,45 +163,57 @@ if __name__ == '__main__':
         os.makedirs(TheApplication.SamplesDir + "\\API\\Python")
 
     # Set up primary optical system
+    """
+    WARNING THIS ONLY APPEARS TO WORK WHEN THE LENS FILE IS IN THE SAMPLES DIRECTORY UNDER SEQUENTIAL/OBJECTIVES/FILE.ZMX
+    Why does this happen
+    whyyyyyy
+    """
     sampleDir = TheApplication.SamplesDir
-    file = filename
-    testFile = sampleDir + "\\Sequential\\" + filename #sampleDir + "\\Sequential\\Objectives\\" + file
+    file = "parabolatest.zmx"
+    testFile = sampleDir + "\\Sequential\\Objectives\\" + file
     TheSystem.LoadFile(testFile, False)
+    # sampleDir = TheApplication.SamplesDir
+    # file = filename
+    # testFile = sampleDir + filename #sampleDir + "\\Sequential\\Objectives\\" + file
+    # TheSystem.LoadFile(filename, False)
 
     #! [e22s01_py]
     # Set up Batch Ray Trace
     raytrace = TheSystem.Tools.OpenBatchRayTrace()
     nsur = TheSystem.LDE.NumberOfSurfaces
+    print(nsur)
     normUnPolData = raytrace.CreateNormUnpol((max_rays + 1) * (max_rays + 1), ZOSAPI.Tools.RayTrace.RaysType.Real, nsur)
     #! [e22s01_py]
 
     #! [e22s02_py]
     # Define batch ray trace constants
     hx = fovx_deg
-    max_wave = TheSystem.SystemData.Wavelengths.NumberOfWavelengths
-    num_fields = TheSystem.SystemData.Fields.NumberOfFields
-    hy_ary = fovy_deg#np.array([0, 0.707, 1])
+    max_wave = 1# TheSystem.SystemData.Wavelengths.NumberOfWavelengths
+    num_fields = 1 #TheSystem.SystemData.Fields.NumberOfFields
+    hy_ary = fovy_deg #np.array([0, 0.707, 1])
     #! [e22s02_py]
-
+    waveNumber = 1
     """
     Don't think this is neccessary because we just want ray data
     """
     # Initialize x/y/z image plane arrays -
-    x_ary = np.empty((num_fields, max_wave, ((max_rays + 1) * (max_rays + 1))))
-    y_ary = np.empty((num_fields, max_wave, ((max_rays + 1) * (max_rays + 1))))
-    z_ary = np.empty((num_fields, max_wave, ((max_rays + 1) * (max_rays + 1))))
+    num_fields = 1
+    #max_wave = 0
+    x_ary = np.empty((max_rays + 1) * (max_rays + 1))
+    y_ary = np.empty((max_rays + 1) * (max_rays + 1))
+    z_ary = np.empty((max_rays + 1) * (max_rays + 1))
 
     # Initialize alpha/beta/gamma image plane arrays -
-    a_ary = np.empty((num_fields, max_wave, ((max_rays + 1) * (max_rays + 1))))
-    b_ary = np.empty((num_fields, max_wave, ((max_rays + 1) * (max_rays + 1))))
-    g_ary = np.empty((num_fields, max_wave, ((max_rays + 1) * (max_rays + 1))))
+    a_ary = np.empty((max_rays + 1) * (max_rays + 1))
+    b_ary = np.empty((max_rays + 1) * (max_rays + 1))
+    g_ary = np.empty((max_rays + 1) * (max_rays + 1))
 
     #! [e22s03_py]
     # Determine maximum field in Y only
     max_field = 0.0
-    for i in range(1, num_fields + 1):
-        if (TheSystem.SystemData.Fields.GetField(i).Y > max_field):
-            max_field = TheSystem.SystemData.Fields.GetField(i).Y
+    # for i in range(1, num_fields + 1):
+    #     if (TheSystem.SystemData.Fields.GetField(i).Y > max_field):
+    #         max_field = TheSystem.SystemData.Fields.GetField(i).Y
     #! [e22s03_py]
 
     # Determine number of rays in the entrance pupil - assume a square
@@ -214,7 +226,7 @@ if __name__ == '__main__':
     # colors = ('b', 'g', 'r', 'c', 'm', 'y', 'k')
 
     # Add rays in a for-loop based on pupil & image location
-    normUnPolData.AddRay(waveNumber, hx, hy_ary, px, py, Enum.Parse(ZOSAPI.Tools.RayTrace.OPDMode, "None"))
+    normUnPolData.AddRay(waveNumber, hx, hy_ary, px[0], py[0], Enum.Parse(ZOSAPI.Tools.RayTrace.OPDMode, "None"))
 
     if TheSystem.SystemData.Fields.GetFieldType() == ZOSAPI.SystemData.FieldType.Angle:
         field_type = 'Angle'
@@ -225,69 +237,76 @@ if __name__ == '__main__':
     elif TheSystem.SystemData.Fields.GetFieldType() == ZOSAPI.SystemData.FieldType.RealImageHeight:
         field_type = 'Height'
 
-    for field in range(1, len(hy_ary) + 1):
-        # plt.subplot(1, 3, field, aspect='equal').set_title('Hy: %.2f (%s)' % (hy_ary[field - 1] * max_field, field_type))
+    #! [e22s04_py]
+    # Adding Rays to Batch, varying normalised object height hy
+    normUnPolData.ClearData()
+    waveNumber = 0
+    #for i = 1:((max_rays + 1) * (max_rays + 1))
+    for i in range(1, (max_rays) * (max_rays) + 1):
 
-        for wave in range(1, max_wave + 1):
+        # px = np.random.random() * 2 - 1
+        # py = np.random.random() * 2 - 1
 
-            #! [e22s04_py]
-            # Adding Rays to Batch, varying normalised object height hy
-            normUnPolData.ClearData()
-            waveNumber = wave
-            #for i = 1:((max_rays + 1) * (max_rays + 1))
-            for i in range(1, (max_rays + 1) * (max_rays + 1) + 1):
+        # while (px*px + py*py > 1):
+        #     py = np.random.random() * 2 - 1
+        normUnPolData.AddRay(waveNumber, hx, hy_ary, px[i], py[i], Enum.Parse(ZOSAPI.Tools.RayTrace.OPDMode, "None"))
+    #! [e22s04_py]
 
-                # px = np.random.random() * 2 - 1
-                # py = np.random.random() * 2 - 1
+    raytrace.RunAndWaitForCompletion()
 
-                # while (px*px + py*py > 1):
-                #     py = np.random.random() * 2 - 1
-                normUnPolData.AddRay(waveNumber, hx, hy_ary, px[i], py[i], Enum.Parse(ZOSAPI.Tools.RayTrace.OPDMode, "None"))
-            #! [e22s04_py]
+    #! [e22s05_py]
+    # Read batch raytrace and display results
+    normUnPolData.StartReadingResults()
 
-            raytrace.RunAndWaitForCompletion()
+    # Python NET requires all arguments to be passed in as reference, so need to have placeholders
+    wave = max_wave
+    field = max_field
+    sysInt = Int32(1)
+    sysDbl = Double(1.0)
+    # output structure is
+    # 0) success
+    # 1) ray number
+    # 2) errCode
+    # 3) vignetteCode
+    # 4) x pos
+    # 5) x ang
+    # 6) y pos
+    # 7) y ang
+    # 8) z pos
+    # 9) z ang
+    # 10) intensity -> use this to get amps?
+    output = normUnPolData.ReadNextResult(sysInt, sysInt, sysInt,
+                   sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl)
+    
 
-            #! [e22s05_py]
-            # Read batch raytrace and display results
-            normUnPolData.StartReadingResults()
+    xlist = []
+    ylist = []
+    zlist = []
 
-            # Python NET requires all arguments to be passed in as reference, so need to have placeholders
-            sysInt = Int32(1)
-            sysDbl = Double(1.0)
-            # output structure is
-            # 0) success
-            # 1) ray number
-            # 2) errCode
-            # 3) vignetteCode
-            # 4) x pos
-            # 5) x ang
-            # 6) y pos
-            # 7) y ang
-            # 8) z pos
-            # 9) z ang
-            # 10) intensity -> use this to get amps?
-            output = normUnPolData.ReadNextResult(sysInt, sysInt, sysInt,
-                            sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl);
+    while output[0]:                                                    # success
+        if ((output[2] == 0) and (output[3] == 0)):                     # ErrorCode & vignetteCode
+            # store in a given raynumber
+            x_ary[output[1] - 1] = output[4]   # X
+            y_ary[output[1] - 1] = output[5]   # Y
+            z_ary[output[1] - 1] = output[6]   # Z
+            a_ary[output[1] - 1] = output[7]   # Alpha
+            b_ary[output[1] - 1] = output[8]   # Beta
+            g_ary[output[1] - 1] = output[9]   # Gamma
+            xlist.append(output[4])
+            ylist.append(output[5])
+            zlist.append(output[6])
 
-            while output[0]:                                                    # success
-                if ((output[2] == 0) and (output[3] == 0)):                     # ErrorCode & vignetteCode
-                    x_ary[field - 1, wave - 1, output[1] - 1] = output[4]   # X
-                    y_ary[field - 1, wave - 1, output[1] - 1] = output[6]   # Y
-                    z_ary[field - 1, wave - 1, output[1] - 1] = output[8]   # Z
-                    a_ary[field - 1, wave - 1, output[1] - 1] = output[5]   # Alpha
-                    b_ary[field - 1, wave - 1, output[1] - 1] = output[7]   # Beta
-                    g_ary[field - 1, wave - 1, output[1] - 1] = output[9]   # Gamma
-
-                output = normUnPolData.ReadNextResult(sysInt, sysInt, sysInt,
-                            sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl);
+        output = normUnPolData.ReadNextResult(sysInt, sysInt, sysInt,
+                   sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl, sysDbl)
             #! [e22s05_py]
             # temp = plt.plot(np.squeeze(x_ary[field - 1, wave - 1, :]), np.squeeze(y_ary[field - 1, wave - 1, :]), '.', ms = 1, color = colors[wave - 1])
-    np.savetxt('{fname}_{wlen}_{fov}_xray.txt'.format(fname=filename,wlen=wave,fov=field),x_ary)
-    np.savetxt('{fname}_{wlen}_{fov}_yray.txt'.format(fname=filename,wlen=wave,fov=field),y_ary)
-    np.savetxt('{fname}_{wlen}_{fov}_zray.txt'.format(fname=filename,wlen=wave,fov=field),z_ary)
-    np.savetxt('{fname}_{wlen}_{fov}_aray.txt'.format(fname=filename,wlen=wave,fov=field),a_ary)
-    np.savetxt('{fname}_{wlen}_{fov}_bray.txt'.format(fname=filename,wlen=wave,fov=field),b_ary)
-    np.savetxt('{fname}_{wlen}_{fov}_gray.txt'.format(fname=filename,wlen=wave,fov=field),g_ary)
+    
+    np.savetxt('{fname}_{nrays}_z9_xray.txt'.format(fname=filename,nrays=max_rays),x_ary)
+    np.savetxt('{fname}_{nrays}_z9_yray.txt'.format(fname=filename,nrays=max_rays),y_ary)
+    np.savetxt('{fname}_{nrays}_z9_zray.txt'.format(fname=filename,nrays=max_rays),z_ary)
+    np.savetxt('{fname}_{nrays}_z9_aray.txt'.format(fname=filename,nrays=max_rays),a_ary)
+    np.savetxt('{fname}_{nrays}_z9_bray.txt'.format(fname=filename,nrays=max_rays),b_ary)
+    np.savetxt('{fname}_{nrays}_z9_gray.txt'.format(fname=filename,nrays=max_rays),g_ary)
     del zos
     zos = None
     # This isn't in a function rn
