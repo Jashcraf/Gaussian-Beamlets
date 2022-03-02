@@ -6,6 +6,7 @@ Created on Wed Nov 17 10:32:33 2021
 @author: jashcraft
 """
 import numpy as np
+import numpy
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from skimage.restoration import unwrap_phase
@@ -69,23 +70,37 @@ def hexagonal_grid(radius,spacing=1.):
     
     return x[select], y[select]
 
-def fourbyfour(array,size):
+def fourbyfour(array,size,coords=None):
     
     import matplotlib.tri as tri
     
-    x = np.linspace(-size/2,size/2,int(np.sqrt(array[0,0,:].size)))
-    x,y = np.meshgrid(x,x)
-    x = np.ravel(x)
-    y = np.ravel(y)
+    # What I think they should be
+    # amax = 1e-3
+    # amin = -amax
+    # bmax = 100
+    # bmin = -bmax
+    # cmax = 1/bmax #1/bmax
+    # cmin = -1/bmax #-1/bmax
+    # dmin = -1.1
+    # dmax = 1.1
     
-    amax = None
-    amin = None
-    bmax = 1
-    bmin = 0
-    cmax = None
-    cmin = min(array[2,0,:])
-    dmax = 1
-    dmin = 0
+    amax = 1#1e-2 #None
+    amin = 0#-1e-2 #None
+    bmax = 1e-6#254e-3 # 5.52e-5 #None
+    bmin = 0 # -5.52e-5 #None
+    cmax = -1/255e-3 #1/5.52e-3 # None
+    cmin = -1/254e-3 #Non e #min(array[2,0,:])
+    dmax = 1e-0#1e-4 # None
+    dmin = 0 # None
+    
+    # amax = None
+    # amin = None
+    # bmax = None
+    # bmin = None
+    # cmax = None
+    # cmin = None 
+    # dmax = None
+    # dmin = None
     
     Axx = array[0,0,:]
     Axy = array[0,1,:]
@@ -107,46 +122,73 @@ def fourbyfour(array,size):
     Dyx = array[3,2,:]
     Dyy = array[3,3,:]
     
-    print('Axx length ',Axx.size)
+    if coords is not None:
+        x = coords[0,:]
+        y = coords[1,:]
+        print(x.shape)
+    abcd = [Axx,Axy,Ayx,Ayy,Bxx,Bxy,Byx,Byy,Cxx,Cxy,Cyx,Cyy,Dxx,Dxy,Dyx,Dyy]
+    titl = ['Axx','Axy','Ayx','Ayy','Bxx','Bxy','Byx','Byy','Cxx','Cxy','Cyx','Cyy','Dxx','Dxy','Dyx','Dyy']
     
-    fig,ax = plt.subplots(ncols=4,nrows=4,figsize=[10,7])
+    # for i in range(16):
+        
+    #     # plt.figure()
+    #     # plt.imshow(np.reshape(abcd[i],[50,50]),vmin=0,vmax=1e-5)
+    #     # plt.title(titl[i])
+    #     # plt.colorbar()
+    #     # plt.show()
+        
+    #     plt.figure()
+    #     if coords is not None:
+    #         plt.scatter(x,y,c=abcd[i])
+    #     else:
+    #         x = np.linspace(-size/2,size/2,int(np.sqrt(array[0,0,:].size)))
+    #         x,y = np.meshgrid(x,x)
+    #         x = np.ravel(x)
+    #         y = np.ravel(y)
+    #         plt.scatter(x,y,c=abcd[i])
+    #     plt.title(titl[i])
+    #     plt.colorbar()
+    #     plt.show()
+        
+    
+    fig,ax = plt.subplots(ncols=4,nrows=4,figsize=[20,16])
     
     plt.suptitle('Ray Transfer Matrix')
     
-    pca = ax[0,0].tripcolor(x,y,Axx,vmin=amin,vmax=amax)
+    pca = ax[0,0].scatter(x,y,c=Axx,vmin=amin,vmax=amax)
     ax[0,0].axis('off')
-    ax[0,1].tripcolor(x,y,Axy,vmin=amin,vmax=amax)
+    ax[0,1].scatter(x,y,c=Axy,vmin=amin,vmax=amax)
     ax[0,1].axis('off')
-    ax[1,0].tripcolor(x,y,Ayx,vmin=amin,vmax=amax)
+    ax[1,0].scatter(x,y,c=Ayx,vmin=amin,vmax=amax)
     ax[1,0].axis('off')
-    ax[1,1].tripcolor(x,y,Ayy,vmin=amin,vmax=amax)
+    ax[1,1].scatter(x,y,c=Ayy,vmin=amin,vmax=amax)
     ax[1,1].axis('off')
     
-    pcb = ax[0,2].tripcolor(x,y,Bxx,vmin=bmin,vmax=bmax)
+    pcb = ax[0,2].scatter(x,y,c=Bxx,vmin=bmin,vmax=bmax)
     ax[0,2].axis('off')
-    ax[0,3].tripcolor(x,y,Bxy,vmin=bmin,vmax=bmax)
+    ax[0,3].scatter(x,y,c=Bxy,vmin=bmin,vmax=bmax)
     ax[0,3].axis('off')
-    ax[1,2].tripcolor(x,y,Byx,vmin=bmin,vmax=bmax)
+    ax[1,2].scatter(x,y,c=Byx,vmin=bmin,vmax=bmax)
     ax[1,2].axis('off')
-    ax[1,3].tripcolor(x,y,Byy,vmin=bmin,vmax=bmax)
+    ax[1,3].scatter(x,y,c=Byy,vmin=bmin,vmax=bmax)
     ax[1,3].axis('off')
     
-    pcc = ax[2,0].tripcolor(x,y,Cxx,vmin=cmin,vmax=cmax)
+    pcc = ax[2,0].scatter(x,y,c=Cxx,vmin=cmin,vmax=cmax)
     ax[2,0].axis('off')
-    ax[2,1].tripcolor(x,y,Cxy,vmin=cmin,vmax=cmax)
+    ax[2,1].scatter(x,y,c=Cxy,vmin=cmin,vmax=cmax)
     ax[2,1].axis('off')
-    ax[3,0].tripcolor(x,y,Cyx,vmin=cmin,vmax=cmax)
+    ax[3,0].scatter(x,y,c=Cyx,vmin=cmin,vmax=cmax)
     ax[3,0].axis('off')
-    ax[3,1].tripcolor(x,y,Cyy,vmin=cmin,vmax=cmax)
+    ax[3,1].scatter(x,y,c=Cyy,vmin=cmin,vmax=cmax)
     ax[3,1].axis('off')
     
-    pcd = ax[2,2].tripcolor(x,y,Dxx,vmin=dmin,vmax=dmax)
+    pcd = ax[2,2].scatter(x,y,c=Dxx,vmin=dmin,vmax=dmax)
     ax[2,2].axis('off')
-    ax[2,3].tripcolor(x,y,Dxy,vmin=dmin,vmax=dmax)
+    ax[2,3].scatter(x,y,c=Dxy,vmin=dmin,vmax=dmax)
     ax[2,3].axis('off')
-    ax[3,2].tripcolor(x,y,Dyx,vmin=dmin,vmax=dmax)
+    ax[3,2].scatter(x,y,c=Dyx,vmin=dmin,vmax=dmax)
     ax[3,2].axis('off')
-    ax[3,3].tripcolor(x,y,Dyy,vmin=dmin,vmax=dmax)
+    ax[3,3].scatter(x,y,c=Dyy,vmin=dmin,vmax=dmax)
     ax[3,3].axis('off')
     
     fig.colorbar(pca, ax=ax[0:2,0:2], shrink=0.6, location='right')

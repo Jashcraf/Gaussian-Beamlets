@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jan 14 20:10:09 2022
+
+@author: jashcraft
+"""
+import gfuncs as gf
+import numpy as np
+import utils as ut
+# Create rays for a 1" diameter lens
+
+rays = gf.makerays(25.4e-3, 99,circle=False)
+
+nrays = int((rays.shape[1]))
+scale = 5e-2
+
+lens = gf.ThinLens(254e-3, nrays)
+dist = gf.FreeSpace(254e-3, nrays)
+z5errays = gf.ArbitraryWFE(99, 25.4e-3,rays,scale,zern_index=6)
+#z5testrays = gf.ZernikeWFE(99, 25.4e-3,rays,6,scale) # testing astig
+#rayt = gf.matmultlist(lens, z5er)
+rayt = gf.matmultlist(dist, lens)
+rayo = gf.matmultrays(rayt, z5errays)
+#rayo_test = gf.matmultrays(rayt,z5testrays)
+#rayt = gf.matmultlist(dist, z5er)
+#rayo = gf.matmultrays(rayt, rays)
+
+import matplotlib.pyplot as plt
+
+# plt.figure(figsize=[10,10])
+# plt.title('Ray Intercepts at the Image Plane')
+# plt.xlabel('x coordinate [m]')
+# plt.ylabel('y coordinate [m]')
+# indsel = rays[0,:]**2 + rays[1,:]**2 <= (25.4e-3/2)**2
+# # plt.scatter(rayo[0,:][indsel],rayo[1,:][indsel])
+# plt.scatter(rayo[0,:],rayo[1,:],label='arb')
+# plt.scatter(rayo_test[0,:],rayo_test[1,:],label='explicit')
+# plt.legend()
+# plt.ylim([-scale,scale])
+# plt.xlim([-scale,scale])
+# plt.show()
+
+#ut.fourbyfour(rayt, 25.4e-3,coords=rays)
+#efie = np.reshape(gf.eval_gausfield(z5errays, rayt, 2.2e-6, 5e-4, 256),[256,256])
+#ut.amp_phase_plot(efie,logintensity=True)
+
+raysincirc = z5errays[:,z5errays[0,:]**2 + z5errays[1,:]**2 <= 12.7e-3**2]
+rtmincirc  = rayt[:,:,z5errays[0,:]**2 + z5errays[1,:]**2 <= 12.7e-3**2]
+
+
+# raysincirc = z5testrays[:,z5testrays[0,:]**2 + z5testrays[1,:]**2 <= 12.7e-3**2]
+# rtmincirc  = rayt[:,:,z5testrays[0,:]**2 + z5testrays[1,:]**2 <= 12.7e-3**2]
+
+efie2 = np.reshape(gf.eval_gausfield(raysincirc, rtmincirc, 2.2e-6, 5e-4, 256),[256,256])
+ut.amp_phase_plot(efie2,logintensity=True)
+
+# Now try a fourier transform
+
