@@ -304,7 +304,8 @@ def ArbitraryWFE(nrays,size,rays,scale,zern_index=None,array=None):
     #zern = zernike_j(zern_index,nrays)
     #dy,dx = np.gradient(np.angle(z)*wlen/(2*np.pi),size/(nrays),edge_order=1)
     print('Computing Derivative for Pixelscale of = ',size/nrays)
-    dy,dx = np.gradient(z,size/(nrays),edge_order=1)
+#     dy,dx = np.arctan(np.gradient(z,size/(nrays),edge_order=1))
+    dy,dx = (np.gradient(z,size/(nrays),edge_order=2))
 
 
     #dx *= scale
