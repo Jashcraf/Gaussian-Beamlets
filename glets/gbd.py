@@ -22,7 +22,37 @@ numbathreads = 16
 print('numba threads = ',numbathreads)
 set_num_threads(numbathreads)
 
-def eval_gausfield(rays,sys,wavelength,detsize,npix,amps=None,use_numba=False,use_numexpr=False):
+def ComputeRaysFromOF(OF,size,wo,samplescheme='even'):
+    
+    if samplescheme == 'fibbonacci':
+            
+            numrays = np.int(np.round(np.pi*((size/2.0)*OF/(wo))*9.0)) # This is arbitrary scaling
+            print('numbeamlets = ',self.numrays)
+                
+            
+            c = np.array([0,0]) # XY offset from a spiral
+            R = (self.size/2)*np.sqrt(np.linspace(1/2,self.numrays-1/2,self.numrays))/np.sqrt(self.numrays-1/2)
+            T = 4/(1+np.sqrt(5))*np.pi*np.linspace(1,self.numrays,self.numrays);
+            X = c[0] +R*np.cos(T)
+            Y = c[1] +R*np.sin(T)
+
+    elif samplescheme == 'even':
+
+        numrays = np.int(np.round(size*OF/(2*wo)))
+        print('numbeamlets = ',numrays)
+
+        # Define lists of XY coordinate pairs for square grid
+        x = np.linspace(-size/2,size/2,numrays)
+        y = np.linspace(-size/2,size/2,numrays)
+        x,y = np.meshgrid(x,y)
+        X = np.ravel(x) #np.concatenate(x).flatten('F')
+        Y = np.ravel(y) # np.concatenate(y).flatten('F')
+        
+    return np.array([X,Y,0*X,0*Y])
+        
+        
+
+def eval_gausfield(rays,sys,wavelength,detsize,npix,amps=None,use_numba=False,use_numexpr=False,return_rays=False):
     """
     
 
@@ -48,9 +78,12 @@ def eval_gausfield(rays,sys,wavelength,detsize,npix,amps=None,use_numba=False,us
     """
     
     # Prepare propagation bits
-    wo = 25*wavelength
+    wo = 20*wavelength
     zr = np.pi*wo**2/wavelength
     Q = np.array([[1/(1j*zr),0],[0,1/(1j*zr)]])
+#     size = 2*np.abs(rays[0,0])
+#     print('pupil D = ',size)
+#     print('OF = ',2*wo*np.sqrt(rays.shape[1])/size)
     
     u = np.linspace(-detsize/2,detsize/2,npix)
     u,v = np.meshgrid(u,u)

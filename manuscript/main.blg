@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2021)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: spiejour.bst
+Database file #1: report.bib
+Warning--empty volume in Ashcraft2020
+Warning--empty volume in cai_decentered_nodate
+You've used 4 entries,
+            2022 wiz_defined-function locations,
+            523 strings with 4323 characters,
+and the built_in function-call counts, 862 in all, are:
+= -- 82
+> -- 35
+< -- 0
++ -- 16
+- -- 8
+* -- 75
+:= -- 133
+add.period$ -- 4
+call.type$ -- 4
+change.case$ -- 4
+chr.to.int$ -- 0
+cite$ -- 6
+duplicate$ -- 41
+empty$ -- 79
+format.name$ -- 11
+if$ -- 200
+int.to.chr$ -- 0
+int.to.str$ -- 4
+missing$ -- 4
+newline$ -- 15
+num.names$ -- 4
+pop$ -- 14
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 24
+stack$ -- 0
+substring$ -- 29
+swap$ -- 18
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 2
+while$ -- 8
+width$ -- 5
+write$ -- 36
+(There were 2 warnings)

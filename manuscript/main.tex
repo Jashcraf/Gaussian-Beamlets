@@ -1,0 +1,62 @@
+\documentclass[12pt]{spieman}  % 12pt font required by SPIE;
+%\documentclass[a4paper,12pt]{spieman}  % use this instead for A4 paper
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{tocloft}
+
+\title{Hybrid Propagation Physics for The Design and Modeling of Astronomical Observatories Outfitted with Coronagraphs}
+
+\author[a]{Jaren N. Ashcraft}
+\author[b]{Ewan S. Douglas}
+\author[a,b,c]{Daewook Kim}
+\author[d]{A.J. El Dorado Riggs}
+\affil[a]{James C. Wyant College of Optical Sciences, University of Arizona, Meinel Building 1630 E. University Blvd., Tucson, AZ. 85721}
+\affil[b]{Department of Astronomy and Steward Observatory, University of Arizona, 933 N. Cherry Ave., Tucson, AZ 85719, USA}
+\affil[c]{Large Binocular Telescope Observatory, University Of Arizona, 933 N. Cherry Ave. Tucson, AZ 85721} 
+\affil[d]{Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Drive, Pasadena, CA 91109}
+
+\renewcommand{\cftdotsep}{\cftnodots}
+\cftpagenumbersoff{figure}
+\cftpagenumbersoff{table} 
+\begin{document} 
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+% Include a list of up to six keywords after the abstract
+\keywords{physical optics modeling, coronagraphs, fresnel, gaussian beamlet decomposition}
+
+% Include email contact information for corresponding author
+{\noindent \footnotesize\textbf{*}Jaren N. Ashcraft,  \linkable{jashcraft@email.arizona.edu} }
+
+\begin{spacing}{2}   % use double spacing for rest of manuscript
+
+\input{section1}
+
+\input{section2}
+
+\input{section3}
+
+\input{section4}
+
+
+%%%%% References %%%%%
+
+\bibliography{report}   % bibliography data in report.bib
+\bibliographystyle{spiejour}   % makes bibtex use spiejour.bst
+
+%%%%% Biographies of authors %%%%%
+
+\vspace{2ex}\noindent\textbf{First Author} is an assistant professor at the University of Optical Engineering. He received his BS and MS degrees in physics from the University of Optics in 1985 and 1987, respectively, and his PhD degree in optics from the Institute of Technology in 1991.  He is the author of more than 50 journal papers and has written three book chapters. His current research interests include optical interconnects, holography, and optoelectronic systems. He is a member of SPIE.
+
+\vspace{1ex}
+\noindent Biographies and photographs of the other authors are not available.
+
+\listoffigures
+\listoftables
+
+\end{spacing}
+\end{document}
