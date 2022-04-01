@@ -15,11 +15,11 @@
 clear all % just for my sanity
 %% User Inputs
 pth = 'C:/Users/UASAL-OPTICS/Desktop/Gaussian-Beamlets/'; 
-fn_ini = 'parabola_test';
+fn_ini = 'Hubble_Test';
 fov_to_trace_x = 0; % degrees
 fov_to_trace_y = 0; % degrees
-fov_max = 1; % degrees
-pupil_max = 3250;
+fov_max = 0.08; % degrees
+pupil_max = 2.4/2;
 nrays = 113; % number of rays across the pupil
 dz = 1e-4; % separation of parabasal rays
 surface = [1,10];
