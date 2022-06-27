@@ -10,4 +10,5 @@ For diffraction-limited optical systems an accurate physical optics model is nec
 
 ### Papers
 [1] Jaren N. Ashcraft, Ewan S. Douglas, "An open-source Gaussian beamlet decomposition tool for modeling astronomical telescopes," Proc. SPIE 11450, Modeling, Systems Engineering, and Project Management for Astronomy IX, 114501D (13 December 2020); https://doi.org/10.1117/12.2561921
+
 [2] Jaren N. Ashcraft, Ewan S. Douglas, Daewook Kim, A.J. Riggs, "Hybrid Propagation Physics for The Design and Modeling of Astronomical Observatories Outfitted with Coronagraphs" *in prep*
