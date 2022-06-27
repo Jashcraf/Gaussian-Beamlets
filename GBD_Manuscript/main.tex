@@ -1,0 +1,64 @@
+\documentclass[12pt]{spieman}  % 12pt font required by SPIE;
+%\documentclass[a4paper,12pt]{spieman}  % use this instead for A4 paper
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{tocloft}
+
+\title{Hybrid Propagation Physics for The Design and Modeling of Astronomical Observatories Outfitted with Coronagraphs}
+
+\author[a]{Jaren N. Ashcraft}
+\author[b]{Ewan S. Douglas}
+\author[a,b,c]{Daewook Kim}
+\author[d]{A.J. Riggs}
+\affil[a]{James C. Wyant College of Optical Sciences, University of Arizona, Meinel Building 1630 E. University Blvd., Tucson, AZ. 85721}
+\affil[b]{Department of Astronomy and Steward Observatory, University of Arizona, 933 N. Cherry Ave., Tucson, AZ 85719, USA}
+\affil[c]{Large Binocular Telescope Observatory, University Of Arizona, 933 N. Cherry Ave. Tucson, AZ 85721} 
+\affil[d]{Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Drive, Pasadena, CA 91109}
+
+\renewcommand{\cftdotsep}{\cftnodots}
+\cftpagenumbersoff{figure}
+\cftpagenumbersoff{table} 
+\begin{document} 
+\maketitle
+
+\begin{abstract}
+For diffraction-limited optical systems an accurate physical optics model is necessary to properly evaluate instrument performance. Astronomical observatories outfitted with coronagraphs require physical optics models to simulate the effects of misalignment\cite{krist_numerical_2015}, diffraction\cite{milani_roman}, and polarization\cite{anche_polarization_2018}. Accurate knowledge of the observatory's point-spread function (PSF) is integral for the design of high-contrast imaging instruments \cite{Riggs_constraining_2019} and simulation of astrophysical observations\cite{douglas_sensitivity_2022}. The state of the art models the misalignment, ray aberration, and diffraction model across multiple software packages, which complicates the design process\cite{krist_time_series_2021}. This research proposes to update an existing, powerful open-source optical analysis software (POPPY) with new propagation physics to better integrate the geometrical and physical regimes of the optical field. Gaussian Beamlet Decomposition is a ray-based method of diffraction calculation that has been widely implemented in commercial optical design software\cite{bsp_in_codev,modeling_coherence_fred}. By performing the coherent calculation with data from the ray model of the observatory the ray aberration errors can be fed directly into the physical optics model of the coronagraph, enabling a more integrated and open-source model of the observatory.
+\end{abstract}
+
+% Include a list of up to six keywords after the abstract
+\keywords{physical optics modeling, coronagraphs, Fresnel, Gaussian Beamlet Decomposition}
+
+% Include email contact information for corresponding author
+{\noindent \footnotesize\textbf{*}Jaren N. Ashcraft,  \linkable{jashcraft@email.arizona.edu} }
+
+\begin{spacing}{2}   % use double spacing for rest of manuscript
+
+\input{section1}
+
+\input{section2}
+
+\input{section3}
+
+\input{section4}
+
+
+%%%%% References %%%%%
+
+\bibliography{report}   % bibliography data in report.bib
+\bibliographystyle{spiejour}   % makes bibtex use spiejour.bst
+
+\section{Acknowledgments}
+This research made use of High Performance Computing (HPC) resources supported by the University of Arizona TRIF (Technology and Research Initiative Fund), UITS, and Research, Innovation, and Impact (RII) and maintained by the UArizona Research Technologies department. This work was funded by a NASA Space Technology Graduate Research Opportunity.
+%%%%% Biographies of authors %%%%%
+
+\vspace{2ex}\noindent\textbf{Jaren N. Ashcraft} is a Ph.D. Candidate at the University of Arizona's Wyant College of Optical Sciences. He recieved his B.S. degree in Optical Engineering from the University of Rochester, and M.S. degree in Optical Sciences from the University of Arizona. He is a recipient of the NASA Space Technology Graduate Research Opportunity.
+
+\vspace{1ex}
+\noindent Biographies and photographs of the other authors are not available.
+
+\listoffigures
+\listoftables
+
+\end{spacing}
+\end{document}

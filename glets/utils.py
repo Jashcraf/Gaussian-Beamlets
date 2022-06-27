@@ -14,6 +14,17 @@ import matplotlib as mpl
 mpl.rcParams['font.family'] = 'sans-serif'
 mpl.rcParams['font.size'] = 18
 
+def ReadMatlabMat(fn):
+    # import h5py
+    # f = h5py.File(fn,'r')
+    # data = f.get('data/variable1')
+    # data = np.array(data)
+
+    from scipy.io import loadmat
+    data = loadmat(fn)
+    data = data['plotbox']
+    return data
+
 def grab_center(array,cut):
     
     d1,d2 = array.shape
@@ -80,28 +91,9 @@ def hexagonal_grid(radius,spacing=1.):
     
     return x[select], y[select]
 
-def fourbyfour(array,size,coords=None):
+def fourbyfour(array,x,y,size,coords=None):
     
     import matplotlib.tri as tri
-    
-    # What I think they should be
-    # amax = 1e-3
-    # amin = -amax
-    # bmax = 100
-    # bmin = -bmax
-    # cmax = 1/bmax #1/bmax
-    # cmin = -1/bmax #-1/bmax
-    # dmin = -1.1
-    # dmax = 1.1
-    
-    amax = 1#1e-2 #None
-    amin = 0#-1e-2 #None
-    bmax = 1e-6#254e-3 # 5.52e-5 #None
-    bmin = 0 # -5.52e-5 #None
-    cmax = -1/255e-3 #1/5.52e-3 # None
-    cmin = -1/254e-3 #Non e #min(array[2,0,:])
-    dmax = 1e-0#1e-4 # None
-    dmin = 0 # None
     
     # amax = None
     # amin = None
@@ -111,6 +103,20 @@ def fourbyfour(array,size,coords=None):
     # cmin = None 
     # dmax = None
     # dmin = None
+
+    # What I think they should be
+    da = 5e-4
+    db = 5
+    dc = 5e-5
+    dd = 1
+    amax = 3.10014059e-15 + da
+    amin = 3.10014059e-15 - da
+    bmax = -5.75998549e+01+db
+    bmin = -5.75998549e+01-db
+    cmax = -1.73611548e-02 + dc
+    cmin = -1.73611548e-02 - dc
+    dmax = -8.22543594 + dd
+    dmin = -8.22543594 - dd
     
     Axx = array[0,0,:]
     Axy = array[0,1,:]
@@ -161,7 +167,7 @@ def fourbyfour(array,size,coords=None):
     #     plt.show()
         
     
-    fig,ax = plt.subplots(ncols=4,nrows=4,figsize=[20,16])
+    fig,ax = plt.subplots(ncols=4,nrows=4,figsize=[14,9])
     
     plt.suptitle('Ray Transfer Matrix')
     

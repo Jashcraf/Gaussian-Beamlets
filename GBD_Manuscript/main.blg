@@ -1,0 +1,71 @@
+This is BibTeX, Version 0.99d (TeX Live 2021)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: spiejour.bst
+Database file #1: report.bib
+Warning--I didn't find a database entry for "krist_numerical_2015"
+Warning--I didn't find a database entry for "milani_roman"
+Warning--I didn't find a database entry for "anche_polarization_2018"
+Warning--I didn't find a database entry for "Riggs_constraining_2019"
+Warning--I didn't find a database entry for "douglas_sensitivity_2022"
+Warning--I didn't find a database entry for "krist_time_series_2021"
+Warning--I didn't find a database entry for "bsp_in_codev"
+Warning--I didn't find a database entry for "modeling_coherence_fred"
+Warning--I didn't find a database entry for "thompson_nicmos_1994"
+Warning--I didn't find a database entry for "horner_nircam_2004"
+Warning--I didn't find a database entry for "Astro2020"
+Warning--I didn't find a database entry for "anderson_integrated_2011"
+Warning--I didn't find a database entry for "guyon_phase_nodate"
+Warning--I didn't find a database entry for "Krist18"
+Warning--I didn't find a database entry for "StoneTechMemo"
+Warning--I didn't find a database entry for "FredTechMemo"
+Warning--I didn't find a database entry for "collins"
+Warning--I didn't find a database entry for "stone_tech_memo"
+Warning--I didn't find a database entry for "numexpr"
+Warning--empty volume in Lozi18
+Warning--empty title in shaklan19
+Warning--empty volume in shaklan19
+Warning--empty volume in cai_decentered_nodate
+Warning--empty volume in Ashcraft2020
+You've used 23 entries,
+            2022 wiz_defined-function locations,
+            694 strings with 10649 characters,
+and the built_in function-call counts, 7594 in all, are:
+= -- 754
+> -- 344
+< -- 0
++ -- 151
+- -- 80
+* -- 602
+:= -- 1022
+add.period$ -- 24
+call.type$ -- 23
+change.case$ -- 23
+chr.to.int$ -- 0
+cite$ -- 28
+duplicate$ -- 386
+empty$ -- 652
+format.name$ -- 104
+if$ -- 1836
+int.to.chr$ -- 0
+int.to.str$ -- 23
+missing$ -- 23
+newline$ -- 73
+num.names$ -- 41
+pop$ -- 111
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 328
+stack$ -- 0
+substring$ -- 437
+swap$ -- 199
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 5
+while$ -- 73
+width$ -- 25
+write$ -- 226
+(There were 24 warnings)

@@ -1,0 +1,131 @@
+\begin{thebibliography}{10}
+
+\bibitem{Lozi18}
+J.~Lozi, O.~Guyon, N.~Jovanovic, {\em et~al.}, ``{SCExAO}, an instrument with a
+  dual purpose: perform cutting-edge science and develop new technologies,''
+  {\em Adaptive Optics Systems VI} , 270  (2018).
+\newblock arXiv: 1809.08301.
+
+\bibitem{Males18}
+J.~R. Males, L.~M. Close, K.~L. Miller, {\em et~al.}, ``{MagAO}-{X}: project
+  status and first laboratory results,'' in {\em Adaptive {Optics} {Systems}
+  {VI}},  D.~Schmidt, L.~Schreiber, and L.~M. Close, Eds., 9, SPIE, (Austin,
+  United States)  (2018).
+
+\bibitem{shaklan19}
+S.~e.~a. Shaklan, ``Status of space-based segmented-aperture coronagraphs for
+  characterizing exo-earths around sun-like stars,''  (2019).
+
+\bibitem{Krist93}
+J.~{Krist}, ``{Tiny Tim : an HST PSF Simulator},'' in {\em Astronomical Data
+  Analysis Software and Systems II},  R.~J. {Hanisch}, R.~J.~V. {Brissenden},
+  and J.~{Barnes}, Eds., {\em Astronomical Society of the Pacific Conference
+  Series} {\bf 52}, 536  (1993).
+
+\bibitem{Krist07}
+J.~E. Krist, ``{PROPER: an optical propagation library for IDL},'' in {\em
+  Optical Modeling and Performance Predictions III},  M.~A. Kahan, Ed.,  {\bf
+  6675}, 250 -- 258, International Society for Optics and Photonics, SPIE
+  (2007).
+
+\bibitem{Doug18}
+E.~S. Douglas and M.~D. Perrin, ``{Accelerated modeling of near and far-field
+  diffraction for coronagraphic optical systems},'' in {\em Space Telescopes
+  and Instrumentation 2018: Optical, Infrared, and Millimeter Wave},
+  M.~Lystrup, H.~A. MacEwen, G.~G. Fazio, {\em et~al.}, Eds.,  {\bf 10698}, 864
+  -- 877, International Society for Optics and Photonics, SPIE  (2018).
+
+\bibitem{por2018hcipy}
+E.~H. Por, S.~Y. Haffert, V.~M. Radhakrishnan, {\em et~al.}, ``{High Contrast
+  Imaging for Python (HCIPy): an open-source adaptive optics and coronagraph
+  simulator},'' in {\em Adaptive Optics Systems VI},  {\em Proc. {{SPIE}}} {\bf
+  10703}  (2018).
+
+\bibitem{Riggs18}
+A.~E. Riggs, G.~Ruane, C.~T. Coker, {\em et~al.}, ``Fast linearized coronagraph
+  optimizer ({FALCO}) {IV}: coronagraph design survey for obstructed and
+  segmented apertures,'' in {\em Space {Telescopes} and {Instrumentation} 2018:
+  {Optical}, {Infrared}, and {Millimeter} {Wave}},  H.~A. MacEwen, M.~Lystrup,
+  G.~G. Fazio, {\em et~al.}, Eds., 167, SPIE, (Austin, United States)  (2018).
+
+\bibitem{krist_practical_2010}
+J.~E. Krist, L.~Pueyo, and S.~B. Shaklan, ``Practical numerical propagation of
+  arbitrary wavefronts through {PIAA} optics,'' 77314N, (San Diego, California,
+  USA)  (2010).
+
+\bibitem{vanderbei_diffraction_2006}
+R.~J. Vanderbei, ``Diffraction {Analysis} of {Two}‐dimensional {Pupil}
+  {Mapping} for {High}‐{Contrast} {Imaging},'' {\em The Astrophysical
+  Journal} {\bf 636}, 528--543  (2006).
+
+\bibitem{Worku17}
+N.~G. Worku and H.~Gross, ``Vectorial field propagation through high {NA}
+  objectives using polarized {Gaussian} beam decomposition,'' in {\em Optical
+  {Trapping} and {Optical} {Micromanipulation} {XIV}},  K.~Dholakia and G.~C.
+  Spalding, Eds., 33, SPIE, (San Diego, United States)  (2017).
+
+\bibitem{Worku:18}
+N.~G. Worku, R.~Hambach, and H.~Gross, ``Decomposition of a field with smooth
+  wavefront into a set of gaussian beams with non-zero curvatures,'' {\em J.
+  Opt. Soc. Am. A} {\bf 35}, 1091--1102  (2018).
+
+\bibitem{Worku19}
+N.~G. Worku and H.~Gross, ``Propagation of truncated gaussian beams and their
+  application in modeling sharp-edge diffraction,'' {\em J. Opt. Soc. Am. A}
+  {\bf 36}, 859--868  (2019).
+
+\bibitem{greynolds_ten_2020}
+A.~W. Greynolds, ``Ten years after (no, not the band): advancements in optical
+  engineering computations over the decade(s),'' in {\em Novel {Optical}
+  {Systems}, {Methods}, and {Applications} {XXIII}},  C.~F. Hahlweg and J.~R.
+  Mulley, Eds., 10, SPIE, (Online Only, United States)  (2020).
+
+\bibitem{goodman17}
+J.~W. Goodman, ``Introduction to fourier optics,'' {\em Introduction to Fourier
+  optics, 3rd ed., by JW Goodman. Englewood, CO: Roberts \& Co. Publishers,
+  2005} {\bf 1}  (2005).
+
+\bibitem{cai_decentered_nodate}
+Y.~Cai and Q.~Lin, ``Decentered elliptical {Gaussian} beam,'' {\em Applied
+  Optics Vol 41 No 21} , 5  (2002).
+
+\bibitem{Harvey15}
+J.~E. Harvey, R.~G. Irvin, and R.~N. Pfisterer, ``{Modeling physical optics
+  phenomena by complex ray tracing},'' {\em Optical Engineering} {\bf 54}(3), 1
+  -- 12  (2015).
+
+\bibitem{Ashcraft2020}
+J.~N. Ashcraft and E.~S. Douglas, ``An open-source gaussian beamlet
+  decomposition tool for modeling astronomical telescopes,'' {\em Modeling,
+  Systems Engineering, and Project Management for Astronomy IX}   (2020).
+
+\bibitem{Perrin12}
+M.~D. Perrin, R.~Soummer, E.~M. Elliott, {\em et~al.}, ``{Simulating point
+  spread functions for the James Webb Space Telescope with WebbPSF},'' in {\em
+  Space Telescopes and Instrumentation 2012: Optical, Infrared, and Millimeter
+  Wave},  M.~C. Clampin, G.~G. Fazio, H.~A. MacEwen, {\em et~al.}, Eds.,  {\bf
+  8442}, 1193 -- 1203, International Society for Optics and Photonics, SPIE
+  (2012).
+
+\bibitem{Jeong:05}
+T.~M. Jeong, D.-K. Ko, and J.~Lee, ``Generalized ray-transfer matrix for an
+  optical element having an arbitrary wavefront aberration,'' {\em Opt. Lett.}
+  {\bf 30}, 3009--3011  (2005).
+
+\bibitem{Stone:97}
+B.~D. Stone and G.~W. Forbes, ``Differential ray tracing in inhomogeneous
+  media,'' {\em J. Opt. Soc. Am. A} {\bf 14}, 2824--2836  (1997).
+
+\bibitem{Greynolds86}
+A.~W. Greynolds, ``{Vector Formulation Of The Ray-Equivalent Method For General
+  Gaussian Beam Propagation},'' in {\em Current Developments in Optical
+  Engineering and Diffraction Phenomena},  R.~E. Fischer, J.~E. Harvey, and
+  W.~J. Smith, Eds.,  {\bf 0679}, 129 -- 133, International Society for Optics
+  and Photonics, SPIE  (1986).
+
+\bibitem{lam_numba_2015}
+S.~K. Lam, A.~Pitrou, and S.~Seibert, ``Numba: A llvm-based python jit
+  compiler,'' in {\em Proceedings of the Second Workshop on the LLVM Compiler
+  Infrastructure in HPC},  1--6  (2015).
+
+\end{thebibliography}
