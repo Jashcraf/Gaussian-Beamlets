@@ -1,3 +1,9 @@
+
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4299354.svg)](https://doi.org/10.5281/zenodo.4299354)
+
+
+
 # An Open-Source Gaussian Beamlet Decomposition Tool for Modeling Astronomical Telescopes
 
 A repository tracking the development of a GBD package to simulate the PSF of astronomical observatories outfitted with coronagraphs. 
