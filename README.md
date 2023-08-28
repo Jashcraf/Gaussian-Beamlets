@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4299354.svg)](https://doi.org/10.5281/zenodo.4299354)
 
-
+**Notice:** This repository is no longer supported, the work has been folded in to the [Poke project](https://github.com/Jashcraf/poke)
 
 # An Open-Source Gaussian Beamlet Decomposition Tool for Modeling Astronomical Telescopes
 
